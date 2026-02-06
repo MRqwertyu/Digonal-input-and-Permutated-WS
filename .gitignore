@@ -1,0 +1,21 @@
+# Ignore compiled binaries and simulation executables
+*.vvp
+*.out
+*.o
+
+# Ignore waveform dumps (can be very large)
+*.vcd
+*.wave
+*.wlf
+*.fsdb
+
+# Ignore log files
+*.log
+*.jou
+
+# Tool-specific directories (e.g., Vivado/Quartus/ModelSim)
+work/
+xsim.dir/
+usage_statistics_webtalk.xml
+*.db
+incremental_db/
