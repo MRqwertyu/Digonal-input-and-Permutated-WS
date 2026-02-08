@@ -97,8 +97,11 @@ module dip_array #(
                 wire [ACC_BW-1:0] psum_in_wire;
                 assign psum_in_wire = pe_psum_wires[r][c];
 
-                // --- D. PE Instantiation ---
-                pe_unit u_pe (
+// --- D. PE Instantiation ---
+                pe_unit #(
+                    .BW(BW),          // Pass the Array BW (16) to the PE
+                    .ACC_BW(ACC_BW)   // Pass the Array ACC_BW (32) to the PE
+                ) u_pe (
                     .clk(clk),
                     .rst_n(rst_n),
                     
@@ -110,15 +113,14 @@ module dip_array #(
 
                     // Inputs
                     .input_i(diagonal_input), 
-                    .weight_i(weight_in_wire),
-                    .psum_i(psum_in_wire),  // <--- You missed connecting this!
+                    .weight_i(weight_in_wire),  // Now matches 'weight_i' in PE
+                    .psum_i(psum_in_wire),      // Now matches 'psum_i' in PE
 
                     // Outputs
-                    .input_o(pe_in_wires[r][c]),      // Output to diagonal grid
-                    .weight_o(pe_weight_wires[r][c]), // Output to weight grid
-                    .psum_o(pe_psum_wires[r+1][c])    // Output to psum grid (Next Row)
+                    .input_o(pe_in_wires[r][c]),      
+                    .weight_o(pe_weight_wires[r][c]), 
+                    .psum_o(pe_psum_wires[r+1][c])    // Now matches 'psum_o' in PE
                 );
-                
             end
         end
     endgenerate
