@@ -19,3 +19,25 @@ xsim.dir/
 usage_statistics_webtalk.xml
 *.db
 incremental_db/
+
+*.log
+*.jou
+.Xil/
+# Vivado Project-specific directories
+DIP_ASIC.sim/
+DIP_ASIC.hw/
+DIP_ASIC.cache/
+DIP_ASIC.runs/
+
+# MATLAB temporary files
+*.asv
+*.slxc
+*.mex*
+DerivedData/
+
+# Synthesis and Implementation outputs
+*.str
+*.backup
+.cache/
+
+DIP_ASIC.ip_user_files/
