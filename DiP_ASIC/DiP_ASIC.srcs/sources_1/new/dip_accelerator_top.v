@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module dip_accelerator_top #(
-    parameter N = 4,            
+    parameter N = 5,            
     parameter BW = 16,          
     parameter ACC_BW = 32,      
     parameter MEM_FILE_A = "matrix_a.mem",       
