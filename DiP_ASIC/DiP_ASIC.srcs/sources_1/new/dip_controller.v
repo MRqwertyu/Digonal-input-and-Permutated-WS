@@ -33,9 +33,9 @@ module dip_controller #(
     
     // Cycle requirements based on paper [cite: 1]
     // Loading takes N cycles (to shift weights all the way down)
-    localparam WEIGHT_LOAD_CYCLES = N;        
+    localparam WEIGHT_LOAD_CYCLES = N+1;        
     // Processing takes 2N cycles to fully flush the systolic wave (Latency = 2N)
-    localparam PROCESSING_CYCLES = 2*N;       
+    localparam PROCESSING_CYCLES = 4*N-5;       
     
     // State Register
     always @(posedge clk or negedge rst_n) begin
@@ -56,7 +56,7 @@ module dip_controller #(
             
             WEIGHT_LOAD: begin
                 // -1 because counter starts at 0
-                if (cycle_counter >= WEIGHT_LOAD_CYCLES - 1)
+                if (cycle_counter >= WEIGHT_LOAD_CYCLES -1)
                     next_state = PROCESSING;
             end
             

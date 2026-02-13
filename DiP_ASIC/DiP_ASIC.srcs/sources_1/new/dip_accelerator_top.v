@@ -60,7 +60,7 @@ module dip_accelerator_top #(
 
     // 4. Memory B (Permutated Weights)
     permutating_weight_memory #(
-        .N(N), .BW(BW), .DEPTH(16), .MEM_FILE(MEM_FILE_B)
+        .N(N), .BW(BW), .DEPTH(N), .MEM_FILE(MEM_FILE_B)
     ) u_mem_weights (
         .clk(clk),
         .ren(wshift),          
