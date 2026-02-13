@@ -5,7 +5,7 @@ module tb_top;
     // ============================================================
     // 1. Parameters & Signals
     // ============================================================
-    parameter N = 4;
+    parameter N = 5;
     parameter BW = 16;
     parameter ACC_BW = 32;
     
@@ -98,13 +98,19 @@ module tb_top;
     // in standard Verilog depending on your tool version. 
     // We will "spy" on the internal array output to print it.
     
+integer i;
     always @(posedge clk) begin
         if (result_valid) begin
-           $display("[%0t] Valid Output: %d %d %d %d", $time, 
-                    u_top.result_data[0], 
-                    u_top.result_data[1], 
-                    u_top.result_data[2], 
-                    u_top.result_data[3]);
+            // 1. Print the timestamp and header
+            $write("[%0t] Valid Output: ", $time);
+            
+            // 2. Loop through N elements using $write (no newline)
+            for (i = 0; i < N; i = i + 1) begin
+                $write("%d ", u_top.result_data[i]);
+            end
+            
+            // 3. Finalize the line with a newline
+            $display(""); 
         end
     end
 

@@ -35,7 +35,7 @@ module dip_controller #(
     // Loading takes N cycles (to shift weights all the way down)
     localparam WEIGHT_LOAD_CYCLES = N+1;        
     // Processing takes 2N cycles to fully flush the systolic wave (Latency = 2N)
-    localparam PROCESSING_CYCLES = 4*N-5;       
+    localparam PROCESSING_CYCLES = 3*N-1;       
     
     // State Register
     always @(posedge clk or negedge rst_n) begin
