@@ -8,9 +8,9 @@ module permutating_weight_memory #(
 )(
     input wire clk,
     input wire ren,              // Read Enable
-    input wire [3:0] base_addr,  // The Row requested by controller
+    input wire [3:0] base_addr,  // The Step Counter from controller (0..3)
     
-    // OUTPUT: SystemVerilog Array (Clean & Simple)
+    // OUTPUT: SystemVerilog Array
     output reg [BW-1:0] row_data_out [0:N-1]
 );
 
@@ -21,10 +21,10 @@ module permutating_weight_memory #(
     integer k;
 
     initial begin
-        // A. Initialize
+        // A. Initialize to 0
         for (k = 0; k < N*DEPTH; k = k + 1) flat_mem[k] = {BW{1'b0}};
         
-        // B. Load File
+        // B. Load File (Natural Order: Row 0, then Row 1...)
         $readmemh(MEM_FILE, flat_mem);
 
         // C. Debug Check
@@ -55,16 +55,21 @@ module permutating_weight_memory #(
                 end
             end
 
-            // Read Logic
-            wire [3:0] permutated_addr;
-            assign permutated_addr = (base_addr + c) % N; 
+            // --- KEY FIX STARTS HERE ---
+            wire [3:0] read_addr;
+
+            // In DiP, each column is often skewed by its index 'c' 
+            // to align with the staggered input wave.
+            // We also maintain the (N-1) inversion for the shift-register load.
+            assign read_addr = ( (N - 1) - base_addr + c )%N; 
 
             always @(posedge clk) begin
                 if (ren) begin
-                    // Direct assignment to output array slice
-                    row_data_out[c] <= bank_mem[permutated_addr];
+                    // Read the inverted row index
+                    row_data_out[c] <= bank_mem[read_addr];
                 end
             end
+            // --- KEY FIX ENDS HERE ---
             
         end
     endgenerate
