@@ -1,23 +1,25 @@
 `timescale 1ns / 1ps
 
 module dip_accelerator_top #(
-    parameter N = 5,            
-    parameter BW = 16,          
-    parameter ACC_BW = 32,      
+    parameter N = 3,            
+    parameter BW = 8,          
+    parameter ACC_BW = 16,      
     parameter MEM_FILE_A = "matrix_a.mem",       
     parameter MEM_FILE_B = "weights_natural.mem" 
 )(
     input wire clk,
     input wire rst_n,
     input wire start,           
-    input wire [15:0] num_tiles,
+    input wire [2:0] num_tiles,
 
     output wire busy,
     output wire done,
-    output wire [ACC_BW-1:0] result_data [0:N-1],
+//    output wire [ACC_BW-1:0] result_data [0:N-1],
     output wire result_valid    
+    
 );
-
+// Add this right inside your module
+    (* dont_touch = "true" *) wire [ACC_BW-1:0] result_data [0:N-1];
     // Internal Signals
     wire wshift, pe_en, mul_en, adder_en;
     reg [15:0] addr_a;

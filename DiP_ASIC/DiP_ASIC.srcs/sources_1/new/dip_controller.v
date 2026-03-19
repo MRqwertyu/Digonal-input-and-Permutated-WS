@@ -8,7 +8,7 @@ module dip_controller #(
     input wire clk,
     input wire rst_n,
     input wire start,              // Start processing
-    input wire [15:0] num_tiles,   // Number of input tiles to process
+    input wire [2:0] num_tiles,   // Number of input tiles to process
     
     // Control outputs to array
     output reg wshift,
@@ -35,7 +35,7 @@ module dip_controller #(
     // Loading takes N cycles (to shift weights all the way down)
     localparam WEIGHT_LOAD_CYCLES = N+1;        
     // Processing takes 2N cycles to fully flush the systolic wave (Latency = 2N)
-    localparam PROCESSING_CYCLES = 3*N-1;       
+    localparam PROCESSING_CYCLES = 3*N;       
     
     // State Register
     always @(posedge clk or negedge rst_n) begin

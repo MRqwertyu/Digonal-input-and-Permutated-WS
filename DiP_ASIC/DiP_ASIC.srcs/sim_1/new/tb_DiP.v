@@ -5,9 +5,9 @@ module tb_top;
     // ============================================================
     // 1. Parameters & Signals
     // ============================================================
-    parameter N = 5;
-    parameter BW = 16;
-    parameter ACC_BW = 32;
+    parameter N = 3;
+    parameter BW = 8;
+    parameter ACC_BW = 16;
     
     // Clock and Reset
     reg clk;
@@ -15,7 +15,7 @@ module tb_top;
     
     // Control Inputs
     reg start;
-    reg [15:0] num_tiles;
+    reg [2:0] num_tiles;
     
     // Outputs
     wire busy;
@@ -32,6 +32,7 @@ module tb_top;
         .ACC_BW(ACC_BW),
         .MEM_FILE_A("matrix_a.mem"),        // Ensure these files exist in Sim folder
         .MEM_FILE_B("weights_natural.mem")
+        //result_data(result_data)
     ) u_top (
         .clk(clk),
         .rst_n(rst_n),
@@ -39,7 +40,7 @@ module tb_top;
         .num_tiles(num_tiles),
         .busy(busy),
         .done(done),
-        // .result_data(result_data), // NOTE: Verilog arrays in ports can be tricky
+        //.result_data(result_data), // NOTE: Verilog arrays in ports can be tricky
         // Some tools require flattening. For simulation, let's access internal wires if needed.
         .result_valid(result_valid)
     );
