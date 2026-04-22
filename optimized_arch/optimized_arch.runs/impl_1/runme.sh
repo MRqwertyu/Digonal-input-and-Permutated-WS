@@ -25,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.runs/impl_1'
+HD_PWD='C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

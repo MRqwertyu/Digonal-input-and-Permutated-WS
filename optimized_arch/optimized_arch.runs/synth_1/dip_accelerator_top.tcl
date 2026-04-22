@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.runs/synth_1/dip_accelerator_top.tcl"
+  variable script "C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.runs/synth_1/dip_accelerator_top.tcl"
   variable category "vivado_synth"
 }
 
@@ -56,7 +56,6 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param chipscope.maxJobs 4
 set_param general.usePosixSpawnForFork 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7z010clg400-1
@@ -64,26 +63,26 @@ create_project -in_memory -part xc7z010clg400-1
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir C:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.cache/wt [current_project]
-set_property parent.project_path C:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.xpr [current_project]
+set_property webtalk.parent_dir C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.cache/wt [current_project]
+set_property parent.project_path C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo c:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.cache/ip [current_project]
+set_property ip_output_repo c:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_mem {
-  C:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.srcs/sources_1/new/weights_natural.mem
-  C:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.srcs/sources_1/new/matrix_a.mem
+  C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/weights_natural.mem
+  C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/matrix_a.mem
 }
 read_verilog -library xil_defaultlib -sv {
-  C:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.srcs/sources_1/new/MaC_unit.v
-  C:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.srcs/sources_1/new/dip_controller.v
-  C:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.srcs/sources_1/new/input_matrix_mem.v
-  C:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.srcs/sources_1/new/weighted_matrix.v
-  C:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.srcs/sources_1/new/dip_accelerator_top.v
+  C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/MaC_unit.v
+  C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/dip_controller.v
+  C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/input_matrix_mem.v
+  C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/weighted_matrix.v
+  C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/dip_accelerator_top.v
 }
-read_verilog -library xil_defaultlib C:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.srcs/sources_1/new/u_pe.v
+read_verilog -library xil_defaultlib C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/u_pe.v
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -93,12 +92,12 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc {{C:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.srcs/constrs_1/imports/Phone Link/Zybo-Z7-Master.xdc}}
-set_property used_in_implementation false [get_files {{C:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.srcs/constrs_1/imports/Phone Link/Zybo-Z7-Master.xdc}}]
+read_xdc {{C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/constrs_1/imports/Phone Link/Zybo-Z7-Master.xdc}}
+set_property used_in_implementation false [get_files {{C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/constrs_1/imports/Phone Link/Zybo-Z7-Master.xdc}}]
 
 set_param ips.enableIPCacheLiteLoad 1
 
-read_checkpoint -auto_incremental -incremental C:/Users/HP/Digonal-input-and-Permutated-WS/DiP_ASIC/DiP_ASIC.srcs/utils_1/imports/synth_1/dip_accelerator_top.dcp
+read_checkpoint -auto_incremental -incremental C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/utils_1/imports/synth_1/dip_accelerator_top.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
