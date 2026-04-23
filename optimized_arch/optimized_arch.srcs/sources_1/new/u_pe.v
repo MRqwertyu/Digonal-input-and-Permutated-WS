@@ -1,79 +1,89 @@
 `timescale 1ns/1ps
-
 module pe_unit #(
-    parameter BW = 16,       // Width of Inputs/Weights
-    parameter ACC_BW = 32    // Width of Accumulator
+    parameter BW     = 8,
+    parameter ACC_BW = 16
 )(
     input  wire              clk,
     input  wire              rst_n,
-
-    // --- Weights (Wire-Forwarded) ---
-    input  wire [BW-1:0]     weight_i, 
+    // Weights
+    input  wire [BW-1:0]     weight_i,
     input  wire              wshift,
-    output wire [BW-1:0]     weight_o, // Changed to Wire
-
-    // --- Inputs (Register-Forwarded for Systolic Timing) ---
+    output wire [BW-1:0]     weight_o,
+    // Inputs
     input  wire [BW-1:0]     input_i,
-    output wire  [BW-1:0]    input_o,  // Kept as Reg for diagonal skew
-
-    // --- Partial Sums ---
-    input  wire [ACC_BW-1:0] psum_i,   
+    output wire [BW-1:0]     input_o,
+    // Partial sums
+    input  wire [ACC_BW-1:0] psum_i,
     output wire [ACC_BW-1:0] psum_o,
-
-    // --- Control Signals ---
+    // Control
     input  wire              pe_en,
     input  wire              mul_en,
     input  wire              adder_en
 );
-
-    /* -------- Internal Storage -------- */
+    // ============================================================
+    // Internal registers
+    // ============================================================
     reg [BW-1:0]     input_reg;
     reg [BW-1:0]     weight_reg;
     reg [2*BW-1:0]   mul_reg;
     reg [ACC_BW-1:0] psum_reg;
-
-    /* -------- Weight Logic (Stationary) -------- */
-    // weight_o is a direct wire connection (combinational forwarding)
-    assign weight_o = weight_reg; 
-
+    // ============================================================
+    // Pipeline alignment (important)
+    // ============================================================
+    reg mul_en_d1;
     always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            weight_reg <= {BW{1'b0}};
-        end else if (wshift) begin
-            // Local weight register still captures the value for multiplication
-            weight_reg <= weight_i;
-        end
+        if (!rst_n)
+            mul_en_d1 <= 1'b0;
+        else
+            mul_en_d1 <= mul_en;
     end
-
-    /* -------- Input Logic (Systolic Delay) -------- */
-    // We KEEP this registered to preserve the diagonal wavefront flow
+    // ============================================================
+    // Operand gating (SAFE - no pipeline freeze)
+    // ============================================================
+    wire zero_skip = (input_reg == {BW{1'b0}}) ||
+                     (weight_reg == {BW{1'b0}});
+    // ============================================================
+    // Weight register (stationary)
+    // ============================================================
+    assign weight_o = weight_reg;
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            weight_reg <= {BW{1'b0}};
+        else if (wshift)
+            weight_reg <= weight_i;
+    end
+    // ============================================================
+    // Input register (diagonal movement)
+    // ============================================================
     assign input_o = input_reg;
     always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
+        if (!rst_n)
             input_reg <= {BW{1'b0}};
-        end else if (pe_en) begin
+        else if (pe_en)
             input_reg <= input_i;
-        end
     end
-
-    /* -------- Multiply-Accumulate Pipeline -------- */
-    // Multiplier Stage
+    // ============================================================
+    // Stage 1: Multiply (with safe zero-skipping)
+    // ============================================================
     always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) 
+        if (!rst_n)
             mul_reg <= {(2*BW){1'b0}};
         else if (mul_en)
-            mul_reg <= input_reg * weight_reg;
+            mul_reg <= zero_skip ? {(2*BW){1'b0}} 
+                                 : input_reg * weight_reg;
     end
-
-    // Accumulator Stage
+    // ============================================================
+    // Stage 2: Accumulate (aligned with pipeline)
+    // ============================================================
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n)
             psum_reg <= {ACC_BW{1'b0}};
-        else if (adder_en)
-            psum_reg <= psum_i + mul_reg;
+        else if (mul_en_d1 && adder_en)
+            psum_reg <= psum_i + 
+                        {{(ACC_BW-2*BW){mul_reg[2*BW-1]}}, mul_reg};
     end
-
-    /* -------- Output Assignment -------- */
+    // ============================================================
+    // Output
+    // ============================================================
     assign psum_o = psum_reg;
-
 endmodule

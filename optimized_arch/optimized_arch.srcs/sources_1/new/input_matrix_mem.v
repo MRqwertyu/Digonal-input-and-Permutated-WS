@@ -9,7 +9,8 @@ module matrix_memory #(
     output reg  [BW-1:0] row_data_out [0:N-1]
 );
 
-    reg [BW-1:0] memory [0:(N*N)-1];
+// E.g., Supports up to 100 tiles at 64x64 (64 * 64 * 100 = 409,600)
+    reg [BW-1:0] memory [0:500000];
     
     initial begin
         $readmemh(MEM_FILE, memory);

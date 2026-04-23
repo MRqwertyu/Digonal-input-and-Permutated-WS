@@ -2,7 +2,7 @@
 
 ## Clock signal (Sysclk is 125MHz, but we constrain to 1GHz / 1.0ns for ASIC power estimation)
 set_property -dict { PACKAGE_PIN K17   IOSTANDARD LVCMOS33 } [get_ports { clk }]; #IO_L12P_T1_MRCC_35 Sch=sysclk
-create_clock -add -name sys_clk_pin -period 8.000 -waveform {0.000 4.000} [get_ports { clk }];
+create_clock -add -name sys_clk_pin -period 4.000 -waveform {0.000 2.000} [get_ports { clk }];
 
 
 ### Switches
