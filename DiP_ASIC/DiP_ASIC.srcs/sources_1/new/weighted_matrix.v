@@ -3,10 +3,9 @@
 module permutating_weight_memory #(
     parameter N = 4,             // Matrix Size (Columns)
     parameter BW = 16,           // Bit Width
-    parameter DEPTH = 16,        // Max rows in memory
+    parameter DEPTH = 3,        // Max rows in memory
     parameter MEM_FILE = "weights_natural.mem" // File to read
 )(
-    input wire clk,
     input wire ren,              // Read Enable
     input wire [3:0] base_addr,  // The Step Counter from controller (0..3)
     
@@ -54,19 +53,24 @@ module permutating_weight_memory #(
                     bank_mem[r] = flat_mem[(r * N) + c];
                 end
             end
-
-            // --- KEY FIX STARTS HERE ---
+// --- KEY FIX STARTS HERE ---
             wire [3:0] read_addr;
-
+            wire [3:0] safe_addr;
+            
+            assign safe_addr = base_addr % N;
             // In DiP, each column is often skewed by its index 'c' 
             // to align with the staggered input wave.
             // We also maintain the (N-1) inversion for the shift-register load.
-            assign read_addr = ( (N - 1) - base_addr + c )%N; 
+            assign read_addr = ( (N - 1) - safe_addr + c +N)%N; 
 
-            always @(posedge clk) begin
+            // COMBINATIONAL READ (No clock)
+            always @(*) begin
                 if (ren) begin
-                    // Read the inverted row index
-                    row_data_out[c] <= bank_mem[read_addr];
+                    // Read the inverted row index instantly
+                    row_data_out[c] = bank_mem[read_addr];
+                end else begin
+                    // FORCE zeros when disabled to prevent inferred latches!
+                    row_data_out[c] = {BW{1'b0}};
                 end
             end
             // --- KEY FIX ENDS HERE ---

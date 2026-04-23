@@ -2,8 +2,8 @@
 
 module dip_accelerator_top #(
     parameter N = 3,            
-    parameter BW = 8,          
-    parameter ACC_BW = 16,      
+    parameter BW = 16,          
+    parameter ACC_BW = 32,      
     parameter MEM_FILE_A = "matrix_a.mem",       
     parameter MEM_FILE_B = "weights_natural.mem" 
 )(
@@ -56,7 +56,7 @@ module dip_accelerator_top #(
     matrix_memory #(
         .BW(BW), .N(N), .MEM_FILE(MEM_FILE_A)
     ) u_mem_inputs (
-        .clk(clk), .rst_n(rst_n), .ren(pe_en), .addr(addr_a),    
+        .ren(pe_en), .addr(addr_a),    
         .row_data_out(mem_a_data) // Connect Array directly
     );
 
@@ -64,7 +64,6 @@ module dip_accelerator_top #(
     permutating_weight_memory #(
         .N(N), .BW(BW), .DEPTH(N), .MEM_FILE(MEM_FILE_B)
     ) u_mem_weights (
-        .clk(clk),
         .ren(wshift),          
         .base_addr(addr_b[3:0]), 
         .row_data_out(mem_b_data) // Connect Array directly

@@ -6,8 +6,8 @@ module tb_top;
     // 1. Parameters & Signals
     // ============================================================
     parameter N = 3;
-    parameter BW = 8;
-    parameter ACC_BW = 16;
+    parameter BW = 16;
+    parameter ACC_BW = 32;
     
     // Clock and Reset
     reg clk;

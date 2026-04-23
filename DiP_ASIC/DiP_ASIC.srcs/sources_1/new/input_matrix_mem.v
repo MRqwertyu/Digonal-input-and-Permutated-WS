@@ -5,8 +5,7 @@ module matrix_memory #(
     parameter N = 4,             // Matrix Dimension (N x N)
     parameter MEM_FILE = "matrix_a.mem" // File name to read
 )(
-    input wire clk,
-    input wire rst_n,
+
     
     // Read Interface
     input wire ren,              // Read Enable (active high)
@@ -29,20 +28,17 @@ module matrix_memory #(
         $readmemh(MEM_FILE, memory);
     end
 
-    // 3. Read Logic
-    integer i;
-    always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
+integer i;
+    always @(*) begin 
+        // FIX: Now it only outputs data if Read Enable is HIGH *and* address is valid
+        if (ren && (addr < N)) begin
             for (i = 0; i < N; i = i + 1) begin
-                row_data_out[i] <= {BW{1'b0}};
+                row_data_out[i] = memory[(addr * N) + i];
             end
-        end 
-        else if (ren) begin
-            // Fetch N consecutive elements starting from base address
-            // addr = Row Index (0, 1, 2...)
-            // Memory Index = addr * N + column_index
+        end else begin
+            // If ren is LOW, or address is invalid, force zeros to kill toggling/power
             for (i = 0; i < N; i = i + 1) begin
-                row_data_out[i] <= memory[(addr * N) + i];
+                row_data_out[i] = {BW{1'b0}};
             end
         end
     end

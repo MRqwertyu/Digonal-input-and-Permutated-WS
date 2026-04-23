@@ -1,0 +1,40 @@
+#-----------------------------------------------------------
+# Vivado v2025.1 (64-bit)
+# SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
+# IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
+# SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
+# Start of session at: Thu Apr 23 16:53:25 2026
+# Process ID         : 1652
+# Current directory  : C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.runs/synth_1_copy_1
+# Command line       : vivado.exe -log dip_accelerator_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source dip_accelerator_top.tcl
+# Log file           : C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.runs/synth_1_copy_1/dip_accelerator_top.vds
+# Journal file       : C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.runs/synth_1_copy_1\vivado.jou
+# Running On         : LAPTOP-K18B6J6V
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : AMD Ryzen 7 6800H with Radeon Graphics         
+# CPU Frequency      : 3194 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 16329 MB
+# Swap memory        : 18253 MB
+# Total Virtual      : 34583 MB
+# Available Virtual  : 19602 MB
+#-----------------------------------------------------------
+source dip_accelerator_top.tcl -notrace
+create_project: Time (s): cpu = 00:00:17 ; elapsed = 00:00:10 . Memory (MB): peak = 539.414 ; gain = 247.859
+Command: read_checkpoint -incremental C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/utils_1/imports/synth_1/dip_accelerator_top.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/utils_1/imports/synth_1/dip_accelerator_top.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+read_checkpoint: Time (s): cpu = 00:00:06 ; elapsed = 00:00:22 . Memory (MB): peak = 544.695 ; gain = 5.281
+Command: synth_design -top dip_accelerator_top -part xc7z100ffg900-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z100'
+WARNING: [Common 17-348] Failed to get the license for feature 'Synthesis' and/or device 'xc7z100'. Explanation: The license feature Synthesis could not be found.
+Resolution: Check the status of your licenses in the Vivado License Manager. For debug help search Xilinx Support for "Licensing FAQ". 
+2 Infos, 1 Warnings, 0 Critical Warnings and 1 Errors encountered.
+synth_design failed
+ERROR: [Common 17-345] A valid license was not found for feature 'Synthesis' and/or device 'xc7z100'. Please run the Vivado License Manager for assistance in determining
+which features and devices are licensed for your system.
+Resolution: Check the status of your licenses in the Vivado License Manager. For debug help search Xilinx Support for "Licensing FAQ". If you are using a license server, verify that the license server is up and running a version of the xilinx daemon that is compatible with the version of Xilinx software that you are using. Note: Vivado 2021.1 and later versions require upgrading your license server tools to the Flex 11.17.2.0 versions. Please confirm with your license admin that the correct version of the license server tools are installed.
+INFO: [Common 17-206] Exiting Vivado at Thu Apr 23 16:54:02 2026...
