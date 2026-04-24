@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root MajorVersion="0" MinorVersion="43">
-  <CompositeFile CompositeFileTopName="soc_design" CanBeSetAsTop="false" CanDisplayChildGraph="true">
+  <CompositeFile CompositeFileTopName="bd_404a" CanBeSetAsTop="true" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
     <Generation Name="SYNTHESIS" State="RESET" Timestamp="1777024662"/>
     <Generation Name="SIMULATION" State="RESET" Timestamp="1777024662"/>
