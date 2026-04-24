@@ -67,3 +67,6 @@ optimized_arch/optimized_arch.srcs/sources_1/bd/*/ui/
 *.jou
 *.wdb
 xsim.dir/
+
+*.sim/
+*.saif
