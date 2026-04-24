@@ -41,3 +41,29 @@ DerivedData/
 .cache/
 
 DIP_ASIC.ip_user_files/
+
+# --- Specific Block Design Cleanup ---
+# This keeps the .bd file but ignores the generated folders inside 'bd'
+optimized_arch/optimized_arch.srcs/sources_1/bd/*/ip/
+optimized_arch/optimized_arch.srcs/sources_1/bd/*/hw_handoff/
+optimized_arch/optimized_arch.srcs/sources_1/bd/*/ipshared/
+optimized_arch/optimized_arch.srcs/sources_1/bd/*/hdl/
+optimized_arch/optimized_arch.srcs/sources_1/bd/*/synth/
+optimized_arch/optimized_arch.srcs/sources_1/bd/*/sim/
+optimized_arch/optimized_arch.srcs/sources_1/bd/*/ui/
+
+# --- General Vivado Junk ---
+*.runs/
+*.data/
+*.gen/
+*.sim/
+*.hw/
+*.cache/
+*.ip_user_files/
+.Xil/
+
+# --- Simulation & Logs ---
+*.log
+*.jou
+*.wdb
+xsim.dir/
