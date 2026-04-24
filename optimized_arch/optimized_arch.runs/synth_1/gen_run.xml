@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7z010clg400-1" LaunchTime="1776948457" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/dip_accelerator_top.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7z010clg400-1" LaunchTime="1777015149" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/dip_accelerator_top.dcp">
   <File Type="PA-TCL" Name="dip_accelerator_top.tcl"/>
   <File Type="REPORTS-TCL" Name="dip_accelerator_top_reports.tcl"/>
   <File Type="RDS-RDS" Name="dip_accelerator_top.vds"/>
@@ -101,9 +101,7 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-      <Desc>Vivado Synthesis Defaults</Desc>
-    </StratHandle>
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
     <Step Id="synth_design"/>
   </Strategy>
 </GenRun>

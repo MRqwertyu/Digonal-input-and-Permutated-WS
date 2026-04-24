@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Thu Apr 23 18:19:58 2026
+| Date         : Fri Apr 24 12:54:03 2026
 | Host         : LAPTOP-K18B6J6V running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file dip_accelerator_top_control_sets_placed.rpt
 | Design       : dip_accelerator_top
@@ -41,13 +41,13 @@ Table of Contents
 +--------------------+-------+
 | Total control sets |     2 |
 | >= 0 to < 4        |     0 |
-| >= 4 to < 6        |     0 |
+| >= 4 to < 6        |     1 |
 | >= 6 to < 8        |     0 |
 | >= 8 to < 10       |     0 |
 | >= 10 to < 12      |     0 |
 | >= 12 to < 14      |     0 |
 | >= 14 to < 16      |     0 |
-| >= 16              |     2 |
+| >= 16              |     1 |
 +--------------------+-------+
 * Control sets can be remapped at either synth_design or opt_design
 
@@ -59,10 +59,10 @@ Table of Contents
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | No           | No                    | No                     |               0 |            0 |
-| No           | No                    | Yes                    |              21 |            7 |
+| No           | No                    | Yes                    |               5 |            2 |
 | No           | Yes                   | No                     |               0 |            0 |
 | Yes          | No                    | No                     |               0 |            0 |
-| Yes          | No                    | Yes                    |              16 |            5 |
+| Yes          | No                    | Yes                    |              16 |            7 |
 | Yes          | Yes                   | No                     |               0 |            0 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
@@ -70,11 +70,11 @@ Table of Contents
 4. Detailed Control Set Information
 -----------------------------------
 
-+----------------+---------------------------------------+---------------------------------------+------------------+----------------+--------------+
-|  Clock Signal  |             Enable Signal             |            Set/Reset Signal           | Slice Load Count | Bel Load Count | Bels / Slice |
-+----------------+---------------------------------------+---------------------------------------+------------------+----------------+--------------+
-|  clk_IBUF_BUFG | u_controller/tile_counter[15]_i_1_n_0 | u_array_core/ROW[0].COL[0].u_pe/rst_n |                5 |             16 |         3.20 |
-|  clk_IBUF_BUFG |                                       | u_array_core/ROW[0].COL[0].u_pe/rst_n |                7 |             21 |         3.00 |
-+----------------+---------------------------------------+---------------------------------------+------------------+----------------+--------------+
++----------------+----------------------------------------+---------------------------------------+------------------+----------------+--------------+
+|  Clock Signal  |              Enable Signal             |            Set/Reset Signal           | Slice Load Count | Bel Load Count | Bels / Slice |
++----------------+----------------------------------------+---------------------------------------+------------------+----------------+--------------+
+|  clk_IBUF_BUFG |                                        | u_array_core/ROW[5].COL[5].u_pe/rst_n |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | u_controller/cycle_counter[15]_i_1_n_0 | u_array_core/ROW[5].COL[5].u_pe/rst_n |                7 |             16 |         2.29 |
++----------------+----------------------------------------+---------------------------------------+------------------+----------------+--------------+
 
 

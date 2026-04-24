@@ -5,9 +5,9 @@ module tb_top;
     // ============================================================
     // 1. Parameters & Signals
     // ============================================================
-    parameter N = 3;
-    parameter BW = 8;
-    parameter ACC_BW = 16;
+    parameter N = 6;
+    parameter BW = 16;
+    parameter ACC_BW = 32;
     
     // Clock and Reset
     reg clk;
@@ -15,7 +15,7 @@ module tb_top;
     
     // Control Inputs
     reg start;
-    reg [2:0] num_tiles;
+    reg [5:0] num_tiles;
     
     // Outputs
     wire busy;
@@ -65,7 +65,7 @@ module tb_top;
         // Initial Values
         rst_n = 0;
         start = 0;
-        num_tiles = 1; // Process 1 Tile (4x4)
+        num_tiles = 30; // Process 1 Tile (3x3)
         
         // --- Apply Reset ---
         #20;

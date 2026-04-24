@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date             : Thu Apr 23 18:20:28 2026
+| Date             : Fri Apr 24 12:54:55 2026
 | Host             : LAPTOP-K18B6J6V running 64-bit major release  (build 9200)
 | Command          : report_power -file dip_accelerator_top_power_routed.rpt -pb dip_accelerator_top_power_summary_routed.pb -rpx dip_accelerator_top_power_routed.rpx
 | Design           : dip_accelerator_top
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.102        |
+| Total On-Chip Power (W)  | 0.100        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.009        |
+| Dynamic (W)              | 0.007        |
 | Device Static (W)        | 0.093        |
 | Effective TJA (C/W)      | 11.5         |
 | Max Ambient (C)          | 83.8         |
@@ -52,16 +52,16 @@ Table of Contents
 +----------------+-----------+----------+-----------+-----------------+
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
-| Clocks         |     0.002 |        3 |       --- |             --- |
-| Slice Logic    |    <0.001 |      120 |       --- |             --- |
-|   LUT as Logic |    <0.001 |       61 |     17600 |            0.35 |
-|   CARRY4       |    <0.001 |       12 |      4400 |            0.27 |
-|   Register     |    <0.001 |       37 |     35200 |            0.11 |
+| Clocks         |     0.001 |        3 |       --- |             --- |
+| Slice Logic    |    <0.001 |       87 |       --- |             --- |
+|   LUT as Logic |    <0.001 |       46 |     17600 |            0.26 |
+|   CARRY4       |    <0.001 |        9 |      4400 |            0.20 |
+|   Register     |    <0.001 |       21 |     35200 |            0.06 |
 |   Others       |     0.000 |        2 |       --- |             --- |
-| Signals        |    <0.001 |       90 |       --- |             --- |
-| I/O            |     0.006 |        9 |       100 |            9.00 |
+| Signals        |    <0.001 |       76 |       --- |             --- |
+| I/O            |     0.005 |       14 |       100 |           14.00 |
 | Static Power   |     0.093 |          |           |                 |
-| Total          |     0.102 |          |           |                 |
+| Total          |     0.100 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -72,8 +72,8 @@ Table of Contents
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Vccint    |       1.000 |     0.006 |       0.002 |      0.004 |       NA    | Unspecified | NA         |
-| Vccaux    |       1.800 |     0.006 |       0.000 |      0.005 |       NA    | Unspecified | NA         |
-| Vcco33    |       3.300 |     0.003 |       0.002 |      0.001 |       NA    | Unspecified | NA         |
+| Vccaux    |       1.800 |     0.005 |       0.000 |      0.005 |       NA    | Unspecified | NA         |
+| Vcco33    |       3.300 |     0.002 |       0.001 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -147,7 +147,7 @@ Table of Contents
 +---------------------+-----------+
 | Name                | Power (W) |
 +---------------------+-----------+
-| dip_accelerator_top |     0.009 |
+| dip_accelerator_top |     0.007 |
 |   u_controller      |     0.002 |
 +---------------------+-----------+
 
