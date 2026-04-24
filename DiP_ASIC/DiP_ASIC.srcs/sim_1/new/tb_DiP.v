@@ -5,7 +5,11 @@ module tb_top;
     // ============================================================
     // 1. Parameters & Signals
     // ============================================================
+<<<<<<< HEAD
     parameter N = 6;
+=======
+    parameter N = 3;
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
     parameter BW = 16;
     parameter ACC_BW = 32;
     
@@ -15,7 +19,11 @@ module tb_top;
     
     // Control Inputs
     reg start;
+<<<<<<< HEAD
     reg [7:0] num_tiles;
+=======
+    reg [2:0] num_tiles;
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
     
     // Outputs
     wire busy;
@@ -65,7 +73,11 @@ module tb_top;
         // Initial Values
         rst_n = 0;
         start = 0;
+<<<<<<< HEAD
         num_tiles = 30; // Process 1 Tile (3x3)
+=======
+        num_tiles = 1; // Process 1 Tile (4x4)
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
         
         // --- Apply Reset ---
         #20;

@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 
 module dip_accelerator_top #(
+<<<<<<< HEAD
     parameter N = 6,                             // Scaled up to 6x6 array
     parameter BW = 16,                           // 16-bit inputs/weights
     parameter ACC_BW = 32,                       // 32-bit accumulator (Perfect ARM AXI match)
@@ -29,6 +30,25 @@ module dip_accelerator_top #(
     // Internal Wires
     // ============================================================
     wire [ACC_BW-1:0] result_data [0:N-1];
+=======
+    parameter N = 3,            
+    parameter BW = 8,          
+    parameter ACC_BW = 16,      
+    parameter MEM_FILE_A = "matrix_a.mem",       
+    parameter MEM_FILE_B = "weights_pre_shifted.mem" 
+)(
+    input wire clk,
+    input wire rst_n,
+    input wire start,            
+    input wire [2:0] num_tiles,
+
+    output wire busy,
+    output wire done,
+    output wire result_valid    
+);
+
+    (* dont_touch = "true" *) wire [ACC_BW-1:0] result_data [0:N-1];
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
     
     wire wshift, pe_en, mul_en, adder_en;
     reg [15:0] addr_a;
@@ -37,9 +57,13 @@ module dip_accelerator_top #(
     wire [BW-1:0] mem_a_data [0:N-1];   
     wire [BW-1:0] mem_b_data [0:N-1];   
 
+<<<<<<< HEAD
     // ============================================================
     // 1. Streaming Controller
     // ============================================================
+=======
+    // 1. Controller
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
     dip_controller #(
         .N(N), .BW(BW), .ACC_BW(ACC_BW)
     ) u_controller (
@@ -48,6 +72,7 @@ module dip_accelerator_top #(
         .busy(busy), .done(done)
     );
 
+<<<<<<< HEAD
     // ============================================================
     // 2. Input Address Generation
     // ============================================================
@@ -60,12 +85,27 @@ module dip_accelerator_top #(
             addr_b <= N - 1; 
         end else begin
             if (pe_en) addr_a <= addr_a + 1;
+=======
+    // 2. Address Generation (Pure Combinational Syncing)
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            addr_a <= 0;
+            addr_b <= N - 1; // Start at the bottom row of the text file!
+        end else if (done) begin
+            addr_a <= 0;
+            addr_b <= N - 1; // Reset to the bottom row
+        end else begin
+            if (pe_en) addr_a <= addr_a + 1;
+            
+            // NO MORE 'start' kick needed! Pure reverse loading.
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
             if (wshift) begin
                 if (addr_b > 0) addr_b <= addr_b - 1; 
             end
         end
     end
 
+<<<<<<< HEAD
     // ============================================================
     // 3. Memory Blocks (Inputs & Weights)
     // ============================================================
@@ -87,6 +127,25 @@ module dip_accelerator_top #(
     // ============================================================
     // 4. Systolic Array Core (The Math Engine)
     // ============================================================
+=======
+    // 3. Memory B (Combinational Pre-Shifted Weights)
+    weight_memory #(
+        .N(N), .BW(BW), .MEM_FILE(MEM_FILE_B)
+    ) u_mem_weights (
+        .addr(addr_b),            // No clk or ren needed!
+        .row_data_out(mem_b_data) 
+    );
+
+    // 4. Memory A (Combinational Standard Inputs)
+    matrix_memory #(
+        .BW(BW), .N(N), .MEM_FILE(MEM_FILE_A)
+    ) u_mem_inputs (
+        .addr(addr_a),            // No clk or ren needed!
+        .row_data_out(mem_a_data) 
+    );
+
+    // 5. Systolic Array Core
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
     dip_array #(
         .N(N), .BW(BW), .ACC_BW(ACC_BW)
     ) u_array_core (
@@ -99,6 +158,7 @@ module dip_accelerator_top #(
 
     assign result_valid = adder_en; 
 
+<<<<<<< HEAD
     // ============================================================
     // 5. Dual-Port BRAM Bridge (The ARM Interface)
     // ============================================================
@@ -144,4 +204,6 @@ module dip_accelerator_top #(
         end
     end
 
+=======
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
 endmodule

@@ -58,7 +58,11 @@
     <Option Name="IPUserFilesDir" Val="$PIPUSERFILESDIR"/>
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
+<<<<<<< HEAD
     <Option Name="WTXSimLaunchSim" Val="145"/>
+=======
+    <Option Name="WTXSimLaunchSim" Val="129"/>
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -89,6 +93,7 @@
   <FileSets Version="1" Minor="32">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
       <Filter Type="Srcs"/>
+<<<<<<< HEAD
       <File Path="$PSRCDIR/sources_1/new/MaC_unit.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -110,6 +115,8 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+=======
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
       <File Path="$PSRCDIR/sources_1/new/u_pe.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -117,14 +124,41 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+<<<<<<< HEAD
       <File Path="$PSRCDIR/sources_1/new/weighted_matrix.v">
         <FileInfo>
+=======
+      <File Path="$PSRCDIR/sources_1/new/MaC_unit.v">
+        <FileInfo SFType="SVerilog">
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/dip_controller.v">
+        <FileInfo SFType="SVerilog">
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/input_matrix_mem.v">
+        <FileInfo SFType="SVerilog">
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/weighted_matrix.v">
+        <FileInfo SFType="SVerilog">
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <File Path="$PSRCDIR/sources_1/new/dip_accelerator_top.v">
+<<<<<<< HEAD
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -140,6 +174,9 @@
       </File>
       <File Path="$PGENDIR/sources_1/bd/soc_design/hdl/soc_design_wrapper.v">
         <FileInfo>
+=======
+        <FileInfo SFType="SVerilog">
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -159,7 +196,12 @@
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
+<<<<<<< HEAD
         <Option Name="TopModule" Val="soc_design_wrapper"/>
+=======
+        <Option Name="TopModule" Val="dip_accelerator_top"/>
+        <Option Name="TopAutoSet" Val="TRUE"/>
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
       </Config>
     </FileSet>
     <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
@@ -180,7 +222,10 @@
       <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sim_1/new/tb_DiP.v">
         <FileInfo>
+<<<<<<< HEAD
           <Attr Name="AutoDisabled" Val="1"/>
+=======
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -188,8 +233,14 @@
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
+<<<<<<< HEAD
         <Option Name="TopModule" Val="soc_design_wrapper"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
+=======
+        <Option Name="TopModule" Val="tb_top"/>
+        <Option Name="TopLib" Val="xil_defaultlib"/>
+        <Option Name="TopAutoSet" Val="TRUE"/>
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
         <Option Name="TransportPathDelay" Val="0"/>
         <Option Name="TransportIntDelay" Val="0"/>
         <Option Name="SelectedSimModel" Val="rtl"/>
@@ -241,7 +292,13 @@
   <Runs Version="1" Minor="22">
     <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7z010clg400-1" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="true" IncrementalCheckpoint="$PSRCDIR/utils_1/imports/synth_1/dip_accelerator_top.dcp" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
+<<<<<<< HEAD
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
+=======
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -259,7 +316,11 @@
         <ReportConfig DisplayName="synthesis_report" Name="synth_1_copy_1_synth_synthesis_report_0" Spec="" RunStep="synth_design" ReportFile="dip_accelerator_top.vds">
           <ReportConfigOption Name="dummy_option" Type="string"/>
         </ReportConfig>
+<<<<<<< HEAD
         <ReportConfig DisplayName="Utilization - Synth Design" Name="synth_1_copy_1_synth_report_utilization_0" Spec="report_utilization" RunStep="synth_design" ReportFile="dip_accelerator_top_utilization_synth_1.rpt" Version="1" Minor="0">
+=======
+        <ReportConfig DisplayName="Utilization - Synth Design" Name="synth_1_copy_1_synth_report_utilization_0" Spec="report_utilization" RunStep="synth_design" ReportFile="dip_accelerator_top_utilization_synth.rpt" Version="1" Minor="0">
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
           <ReportConfigOption Name="dummy_option" Type="string"/>
           <ReportConfigOutputOption Name="pb" Type="string" Value=""/>
         </ReportConfig>
@@ -269,7 +330,13 @@
     </Run>
     <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7z010clg400-1" ConstrsSet="constrs_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/impl_1" SynthRun="synth_1" IncludeInArchive="true" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/impl_1" LaunchOptions="-jobs 8 " AutoRQSDir="$PSRCDIR/utils_1/imports/impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
+<<<<<<< HEAD
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
+=======
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>

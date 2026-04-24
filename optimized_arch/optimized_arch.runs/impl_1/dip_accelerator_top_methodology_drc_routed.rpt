@@ -1,7 +1,11 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+<<<<<<< HEAD
 | Date         : Fri Apr 24 12:54:54 2026
+=======
+| Date         : Thu Apr 23 18:20:27 2026
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
 | Host         : LAPTOP-K18B6J6V running 64-bit major release  (build 9200)
 | Command      : report_methodology -file dip_accelerator_top_methodology_drc_routed.rpt -pb dip_accelerator_top_methodology_drc_routed.pb -rpx dip_accelerator_top_methodology_drc_routed.rpx
 | Design       : dip_accelerator_top
@@ -23,11 +27,19 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max checks: <unlimited>
+<<<<<<< HEAD
              Checks found: 13
 +-----------+----------+-------------------------------+--------+
 | Rule      | Severity | Description                   | Checks |
 +-----------+----------+-------------------------------+--------+
 | TIMING-18 | Warning  | Missing input or output delay | 13     |
+=======
+             Checks found: 8
++-----------+----------+-------------------------------+--------+
+| Rule      | Severity | Description                   | Checks |
++-----------+----------+-------------------------------+--------+
+| TIMING-18 | Warning  | Missing input or output delay | 8      |
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
 +-----------+----------+-------------------------------+--------+
 
 2. REPORT DETAILS
@@ -49,21 +61,34 @@ Related violations: <none>
 
 TIMING-18#4 Warning
 Missing input or output delay  
+<<<<<<< HEAD
 An input delay is missing on num_tiles[3] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
+=======
+An input delay is missing on rst_n relative to the rising and/or falling clock edge(s) of sys_clk_pin.
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
 Related violations: <none>
 
 TIMING-18#5 Warning
 Missing input or output delay  
+<<<<<<< HEAD
 An input delay is missing on num_tiles[4] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
+=======
+An input delay is missing on start relative to the rising and/or falling clock edge(s) of sys_clk_pin.
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
 Related violations: <none>
 
 TIMING-18#6 Warning
 Missing input or output delay  
+<<<<<<< HEAD
 An input delay is missing on num_tiles[5] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
+=======
+An output delay is missing on busy relative to the rising and/or falling clock edge(s) of sys_clk_pin.
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
 Related violations: <none>
 
 TIMING-18#7 Warning
 Missing input or output delay  
+<<<<<<< HEAD
 An input delay is missing on num_tiles[6] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
 Related violations: <none>
 
@@ -93,6 +118,12 @@ An output delay is missing on done relative to the rising and/or falling clock e
 Related violations: <none>
 
 TIMING-18#13 Warning
+=======
+An output delay is missing on done relative to the rising and/or falling clock edge(s) of sys_clk_pin.
+Related violations: <none>
+
+TIMING-18#8 Warning
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
 Missing input or output delay  
 An output delay is missing on result_valid relative to the rising and/or falling clock edge(s) of sys_clk_pin.
 Related violations: <none>

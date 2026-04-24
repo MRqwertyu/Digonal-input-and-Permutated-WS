@@ -1,7 +1,11 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+<<<<<<< HEAD
 | Date         : Fri Apr 24 12:54:49 2026
+=======
+| Date         : Thu Apr 23 18:20:24 2026
+>>>>>>> f791e296ea4674a338443894ad1640085a9690b1
 | Host         : LAPTOP-K18B6J6V running 64-bit major release  (build 9200)
 | Command      : report_drc -file dip_accelerator_top_drc_routed.rpt -pb dip_accelerator_top_drc_routed.pb -rpx dip_accelerator_top_drc_routed.rpx
 | Design       : dip_accelerator_top
