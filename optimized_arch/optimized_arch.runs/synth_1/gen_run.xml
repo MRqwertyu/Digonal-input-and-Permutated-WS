@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
-<GenRun Id="synth_1" LaunchPart="xc7z010clg400-1" LaunchTime="1777015149" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/dip_accelerator_top.dcp">
-=======
-<GenRun Id="synth_1" LaunchPart="xc7z010clg400-1" LaunchTime="1776948457" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/dip_accelerator_top.dcp">
->>>>>>> f791e296ea4674a338443894ad1640085a9690b1
+<GenRun Id="synth_1" LaunchPart="xczu7ev-ffvc1156-2-e" LaunchTime="1777028322" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/dip_accelerator_top.dcp">
   <File Type="PA-TCL" Name="dip_accelerator_top.tcl"/>
   <File Type="REPORTS-TCL" Name="dip_accelerator_top_reports.tcl"/>
   <File Type="RDS-RDS" Name="dip_accelerator_top.vds"/>
@@ -15,7 +11,28 @@
   <File Type="VDS-TIMING-PB" Name="dip_accelerator_top_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/dip_controller.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/input_matrix_mem.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/new/u_pe.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/weighted_matrix.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -29,29 +46,24 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/dip_controller.v">
-      <FileInfo SFType="SVerilog">
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/new/input_matrix_mem.v">
-      <FileInfo SFType="SVerilog">
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/new/weighted_matrix.v">
-      <FileInfo SFType="SVerilog">
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <File Path="$PSRCDIR/sources_1/new/dip_accelerator_top.v">
       <FileInfo SFType="SVerilog">
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/bd/soc_design/soc_design.bd">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PGENDIR/sources_1/bd/soc_design/hdl/soc_design_wrapper.v">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -72,7 +84,8 @@
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
       <Option Name="TopModule" Val="dip_accelerator_top"/>
-      <Option Name="TopAutoSet" Val="TRUE"/>
+      <Option Name="TopLib" Val="xil_defaultlib"/>
+      <Option Name="TopRTLFile" Val="$PSRCDIR/sources_1/new/dip_accelerator_top.v"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
@@ -105,13 +118,14 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-<<<<<<< HEAD
-    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
-=======
     <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
       <Desc>Vivado Synthesis Defaults</Desc>
     </StratHandle>
->>>>>>> f791e296ea4674a338443894ad1640085a9690b1
     <Step Id="synth_design"/>
   </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="soc_design_processing_system7_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="soc_design_dip_accelerator_top_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="soc_design_axi_bram_ctrl_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="soc_design_rst_ps7_0_50M_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="soc_design_axi_smc_0"/>
 </GenRun>

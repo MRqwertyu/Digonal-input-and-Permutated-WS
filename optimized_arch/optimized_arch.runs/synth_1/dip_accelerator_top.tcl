@@ -56,25 +56,19 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param chipscope.maxJobs 4
 set_param general.usePosixSpawnForFork 1
-<<<<<<< HEAD
-set_param synth.incrementalSynthesisCache C:/Users/HP/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-17276-LAPTOP-K18B6J6V/incrSyn
-set_param checkpoint.writeSynthRtdsInDcp 1
-set_msg_config -id {Synth 8-256} -limit 10000
-set_msg_config -id {Synth 8-638} -limit 10000
-=======
->>>>>>> f791e296ea4674a338443894ad1640085a9690b1
 OPTRACE "Creating in-memory project" START { }
-create_project -in_memory -part xc7z010clg400-1
+create_project -in_memory -part xczu7ev-ffvc1156-2-e
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_property webtalk.parent_dir C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.cache/wt [current_project]
 set_property parent.project_path C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.xpr [current_project]
+set_property XPM_LIBRARIES {XPM_CDC XPM_FIFO XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
+set_property board_part xilinx.com:zcu104:part0:1.1 [current_project]
 set_property ip_output_repo c:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
@@ -85,12 +79,14 @@ read_mem {
 }
 read_verilog -library xil_defaultlib -sv {
   C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/MaC_unit.v
-  C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/dip_controller.v
-  C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/input_matrix_mem.v
-  C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/weighted_matrix.v
   C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/dip_accelerator_top.v
 }
-read_verilog -library xil_defaultlib C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/u_pe.v
+read_verilog -library xil_defaultlib {
+  C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/dip_controller.v
+  C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/input_matrix_mem.v
+  C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/u_pe.v
+  C:/Users/HP/Digonal-input-and-Permutated-WS/optimized_arch/optimized_arch.srcs/sources_1/new/weighted_matrix.v
+}
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -109,7 +105,7 @@ read_checkpoint -auto_incremental -incremental C:/Users/HP/Digonal-input-and-Per
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
-synth_design -top dip_accelerator_top -part xc7z010clg400-1
+synth_design -top dip_accelerator_top -part xczu7ev-ffvc1156-2-e
 OPTRACE "synth_design" END { }
 if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
  send_msg_id runtcl-6 info "Synthesis results are not added to the cache due to CRITICAL_WARNING"
