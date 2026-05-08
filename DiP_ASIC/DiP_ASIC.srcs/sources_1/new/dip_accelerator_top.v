@@ -15,10 +15,16 @@ module dip_accelerator_top #(
 
     output wire busy,
     output wire done,
-    output wire result_valid    
+    output wire result_valid,
+    
+    // --- The ARM BRAM Read Ports ---
+    input  wire        arm_read_clk,
+    input  wire        arm_read_en,
+    input  wire [14:0] arm_read_addr,
+    output reg  [31:0] arm_read_data
 );
 
-    // FLATTENED TO 1D VECTOR
+    // Internal wire for the 192-bit flattened array output
     (* dont_touch = "true" *) wire [(N*ACC_BW)-1:0] result_data; 
     
     wire wshift, pe_en, mul_en, adder_en;
@@ -83,6 +89,32 @@ module dip_accelerator_top #(
 
     assign result_valid = adder_en; 
 
-    // ---> PASTE DUAL-PORT BRAM BRIDGE HERE <---
+    // =========================================================
+    // 6. DUAL-PORT BRAM BRIDGE (INTERNAL)
+    // =========================================================
+    // This creates a small memory block inside the FPGA fabric.
+    // Sized for 16 words, perfectly fitting N=6 results.
+    reg [31:0] internal_bram [0:15]; 
+    
+    integer i;
+    
+    // PORT A: Hardware Write (192-bits parallel)
+    always @(posedge clk) begin
+        if (result_valid) begin
+            // Slice the 192-bit wire into six 32-bit chunks and store them
+            for (i = 0; i < N; i = i + 1) begin
+                internal_bram[i] <= result_data[i*ACC_BW +: ACC_BW];
+            end
+        end
+    end
+
+    // PORT B: Software Read (32-bits sequential)
+    always @(posedge arm_read_clk) begin
+        if (arm_read_en) begin
+            // AXI addresses are byte-aligned (0, 4, 8...). 
+            // Dropping the bottom 2 bits [14:2] divides by 4 to get the word index (0, 1, 2...)
+            arm_read_data <= internal_bram[arm_read_addr[14:2]];
+        end
+    end
 
 endmodule
