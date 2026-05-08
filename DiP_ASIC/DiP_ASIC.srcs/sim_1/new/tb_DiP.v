@@ -5,11 +5,7 @@ module tb_top;
     // ============================================================
     // 1. Parameters & Signals
     // ============================================================
-<<<<<<< HEAD
     parameter N = 6;
-=======
-    parameter N = 3;
->>>>>>> f791e296ea4674a338443894ad1640085a9690b1
     parameter BW = 16;
     parameter ACC_BW = 32;
     
@@ -19,16 +15,11 @@ module tb_top;
     
     // Control Inputs
     reg start;
-<<<<<<< HEAD
-    reg [7:0] num_tiles;
-=======
-    reg [2:0] num_tiles;
->>>>>>> f791e296ea4674a338443894ad1640085a9690b1
+    reg [7:0] num_tiles; // Expanded to 8 bits to support 30+ tiles
     
     // Outputs
     wire busy;
     wire done;
-    wire [ACC_BW-1:0] result_data [0:N-1]; // Array of outputs
     wire result_valid;
 
     // ============================================================
@@ -38,9 +29,9 @@ module tb_top;
         .N(N),
         .BW(BW),
         .ACC_BW(ACC_BW),
+        .MAX_TILES(30),                     // Added the new parameter
         .MEM_FILE_A("matrix_a.mem"),        // Ensure these files exist in Sim folder
         .MEM_FILE_B("weights_natural.mem")
-        //result_data(result_data)
     ) u_top (
         .clk(clk),
         .rst_n(rst_n),
@@ -48,8 +39,6 @@ module tb_top;
         .num_tiles(num_tiles),
         .busy(busy),
         .done(done),
-        //.result_data(result_data), // NOTE: Verilog arrays in ports can be tricky
-        // Some tools require flattening. For simulation, let's access internal wires if needed.
         .result_valid(result_valid)
     );
 
@@ -67,17 +56,13 @@ module tb_top;
     initial begin
         // --- Setup ---
         $display("------------------------------------------------");
-        $display("Starting DiP Accelerator Simulation");
+        $display("Starting Isomorphic DiP Accelerator Simulation");
         $display("------------------------------------------------");
         
         // Initial Values
         rst_n = 0;
         start = 0;
-<<<<<<< HEAD
-        num_tiles = 30; // Process 1 Tile (3x3)
-=======
-        num_tiles = 1; // Process 1 Tile (4x4)
->>>>>>> f791e296ea4674a338443894ad1640085a9690b1
+        num_tiles = 30; // Process all 30 Tiles
         
         // --- Apply Reset ---
         #20;
@@ -104,22 +89,18 @@ module tb_top;
         $finish;
     end
     
-    // ============================================================
+// ============================================================
     // 5. Monitor Results
     // ============================================================
-    // Since 'result_data' is an unpacked array output, it might be hard to connect
-    // in standard Verilog depending on your tool version. 
-    // We will "spy" on the internal array output to print it.
-    
-integer i;
+    integer i;
     always @(posedge clk) begin
         if (result_valid) begin
             // 1. Print the timestamp and header
             $write("[%0t] Valid Output: ", $time);
             
-            // 2. Loop through N elements using $write (no newline)
+            // 2. Loop through and slice the flattened wire
             for (i = 0; i < N; i = i + 1) begin
-                $write("%d ", u_top.result_data[i]);
+                $write("%d ", u_top.result_data[i*ACC_BW +: ACC_BW]);
             end
             
             // 3. Finalize the line with a newline
