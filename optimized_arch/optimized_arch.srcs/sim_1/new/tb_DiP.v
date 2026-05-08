@@ -15,12 +15,11 @@ module tb_top;
     
     // Control Inputs
     reg start;
-    reg [3:0] num_tiles;
+    reg [7:0] num_tiles;
     
     // Outputs
     wire busy;
     wire done;
-    wire [ACC_BW-1:0] result_data [0:N-1]; // Array of outputs
     wire result_valid;
 
     // ============================================================
@@ -32,7 +31,6 @@ module tb_top;
         .ACC_BW(ACC_BW),
         .MEM_FILE_A("matrix_a.mem"),        // Ensure these files exist in Sim folder
         .MEM_FILE_B("weights_natural.mem")
-        //result_data(result_data)
     ) u_top (
         .clk(clk),
         .rst_n(rst_n),
@@ -40,9 +38,13 @@ module tb_top;
         .num_tiles(num_tiles),
         .busy(busy),
         .done(done),
-        //.result_data(result_data), // NOTE: Verilog arrays in ports can be tricky
-        // Some tools require flattening. For simulation, let's access internal wires if needed.
-        .result_valid(result_valid)
+        .result_valid(result_valid),
+        
+        // Tie off ARM BRAM Interface for standalone simulation
+        .arm_read_clk(1'b0),
+        .arm_read_en(1'b0),
+        .arm_read_addr(15'b0),
+        .arm_read_data()
     );
 
     // ============================================================
@@ -65,7 +67,7 @@ module tb_top;
         // Initial Values
         rst_n = 0;
         start = 0;
-        num_tiles = 14  ; // Process 1 Tile (3x3)
+        num_tiles = 30; // Process 14 Tiles
         
         // --- Apply Reset ---
         #20;
@@ -95,11 +97,10 @@ module tb_top;
     // ============================================================
     // 5. Monitor Results
     // ============================================================
-    // Since 'result_data' is an unpacked array output, it might be hard to connect
-    // in standard Verilog depending on your tool version. 
-    // We will "spy" on the internal array output to print it.
     
-integer i;
+    integer i;
+    reg [ACC_BW-1:0] current_word; // Temporary register to hold the unpacked 32-bit chunk
+
     always @(posedge clk) begin
         if (result_valid) begin
             // 1. Print the timestamp and header
@@ -107,7 +108,9 @@ integer i;
             
             // 2. Loop through N elements using $write (no newline)
             for (i = 0; i < N; i = i + 1) begin
-                $write("%d ", u_top.result_data[i]);
+                // Extract the exact 32-bit word from the flat 192-bit internal wire
+                current_word = u_top.result_data[(i*ACC_BW) +: ACC_BW];
+                $write("%d ", current_word);
             end
             
             // 3. Finalize the line with a newline

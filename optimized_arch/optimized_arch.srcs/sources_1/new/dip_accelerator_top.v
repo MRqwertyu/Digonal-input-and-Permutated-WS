@@ -11,8 +11,8 @@ module dip_accelerator_top #(
     // --- Standard Accelerator Control ---
     input  wire        clk,
     input  wire        rst_n,
-    input  wire        start,            
-    input  wire [3:0]  num_tiles,                
+    input  wire        start,          
+    input  wire [7:0]  num_tiles,                
 
     output wire        busy,
     output wire        done,
@@ -28,14 +28,14 @@ module dip_accelerator_top #(
     // ============================================================
     // Internal Wires
     // ============================================================
-    wire [ACC_BW-1:0] result_data [0:N-1];
+    wire [(N*ACC_BW)-1:0] result_data;
     
     wire wshift, pe_en, mul_en, adder_en;
     reg [15:0] addr_a;
     reg [15:0] addr_b;
 
-    wire [BW-1:0] mem_a_data [0:N-1];   
-    wire [BW-1:0] mem_b_data [0:N-1];   
+    wire [(N*BW)-1:0] mem_a_data ;   
+    wire [(N*BW)-1:0] mem_b_data ;   
 
     // ============================================================
     // 1. Streaming Controller
@@ -79,7 +79,7 @@ module dip_accelerator_top #(
     matrix_memory #(
         .BW(BW), .N(N), .MAX_TILES(MAX_TILES), .MEM_FILE(MEM_FILE_A)
     ) u_mem_inputs (
-        .ren(pe_en),              // Flushes zeros when pe_en drops
+        .ren(pe_en),              
         .addr(addr_a),            
         .row_data_out(mem_a_data) 
     );
@@ -99,11 +99,10 @@ module dip_accelerator_top #(
 
     assign result_valid = adder_en; 
 
-    // ============================================================
+// ============================================================
     // 5. Dual-Port BRAM Bridge (The ARM Interface)
     // ============================================================
     
-    // Write Pointer (Tracks which row the accelerator is writing to)
     reg [11:0] write_addr; // 12 bits allows up to 4096 rows
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
@@ -115,33 +114,35 @@ module dip_accelerator_top #(
         end
     end
 
-    // The Physical Memory Array Inference
-    // Generates N distinct BRAM blocks to avoid write collisions
-    reg [31:0] mem_array [0:N-1][0:4095]; 
+    // FIX: Flattened into a single 1D Array to guarantee BRAM inference
+    // 4096 rows, each row is 192-bits wide
+    (* ram_style = "block" *) reg [(N*ACC_BW)-1:0] mem_array [0:4095]; 
 
-    genvar i;
-    generate
-        for (i = 0; i < N; i = i + 1) begin : bram_gen
-            // PORT A: Accelerator Writing (125 MHz Clock)
-            always @(posedge clk) begin
-                if (result_valid) begin
-                    mem_array[i][write_addr] <= result_data[i];
-                end
-            end
+    // PORT A: Accelerator Writing (125 MHz Clock)
+    always @(posedge clk) begin
+        if (result_valid) begin
+            // Write all N columns simultaneously into the massive 192-bit row
+            mem_array[write_addr] <= result_data;
         end
-    endgenerate
+    end
 
     // PORT B: ARM Processor Reading (AXI Clock)
-    // We split the 16-bit address bus:
-    // Bits [14:12] select which column memory to read from (0 to 5)
-    // Bits [11:0] select the specific row inside that column
     wire [2:0]  target_col = arm_read_addr[14:12]; 
     wire [11:0] target_row = arm_read_addr[11:0];  
+    
+    // Intermediate register to hold the 192-bit word read from BRAM
+    reg [(N*ACC_BW)-1:0] read_word;
 
     always @(posedge arm_read_clk) begin
         if (arm_read_en) begin
-            arm_read_data <= mem_array[target_col][target_row];
+            // Read the full 192-bit row synchronously
+            read_word <= mem_array[target_row];
         end
+    end
+
+    // Combinational multiplexer to extract the specific 32-bit column the ARM requested
+    always @(*) begin
+        arm_read_data = read_word[(target_col * ACC_BW) +: 32];
     end
 
 endmodule

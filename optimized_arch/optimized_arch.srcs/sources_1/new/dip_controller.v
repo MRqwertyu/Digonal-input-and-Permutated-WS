@@ -8,7 +8,7 @@ module dip_controller #(
     input wire clk,
     input wire rst_n,
     input wire start,              
-    input wire [3:0] num_tiles,   // Expanded to 8 bits to support 30+ tiles
+    input wire [7:0] num_tiles,   // Expanded to 8 bits to support 30+ tiles
     
     output reg wshift,
     output reg pe_en,

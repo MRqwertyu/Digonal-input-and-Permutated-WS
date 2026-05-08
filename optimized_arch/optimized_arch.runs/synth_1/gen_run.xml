@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xczu7ev-ffvc1156-2-e" LaunchTime="1777028322" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/dip_accelerator_top.dcp">
-  <File Type="PA-TCL" Name="dip_accelerator_top.tcl"/>
-  <File Type="REPORTS-TCL" Name="dip_accelerator_top_reports.tcl"/>
-  <File Type="RDS-RDS" Name="dip_accelerator_top.vds"/>
-  <File Type="RDS-PROPCONSTRS" Name="dip_accelerator_top_drc_synth.rpt"/>
-  <File Type="RDS-UTIL" Name="dip_accelerator_top_utilization_synth.rpt"/>
-  <File Type="RDS-UTIL-PB" Name="dip_accelerator_top_utilization_synth.pb"/>
-  <File Type="RDS-DCP" Name="dip_accelerator_top.dcp"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="dip_accelerator_top_timing_summary_synth.rpt"/>
-  <File Type="VDS-TIMING-PB" Name="dip_accelerator_top_timing_summary_synth.pb"/>
+<GenRun Id="synth_1" LaunchPart="xc7z010clg400-1" LaunchTime="1778218863">
+  <File Type="PA-TCL" Name="soc_design_wrapper.tcl"/>
+  <File Type="REPORTS-TCL" Name="soc_design_wrapper_reports.tcl"/>
+  <File Type="RDS-RDS" Name="soc_design_wrapper.vds"/>
+  <File Type="RDS-PROPCONSTRS" Name="soc_design_wrapper_drc_synth.rpt"/>
+  <File Type="RDS-UTIL" Name="soc_design_wrapper_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="soc_design_wrapper_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="soc_design_wrapper.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="soc_design_wrapper_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="soc_design_wrapper_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/MaC_unit.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/new/dip_controller.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -39,15 +46,8 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/MaC_unit.v">
-      <FileInfo SFType="SVerilog">
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <File Path="$PSRCDIR/sources_1/new/dip_accelerator_top.v">
-      <FileInfo SFType="SVerilog">
+      <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -55,7 +55,6 @@
     </File>
     <File Path="$PSRCDIR/sources_1/bd/soc_design/soc_design.bd">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -63,7 +62,6 @@
     </File>
     <File Path="$PGENDIR/sources_1/bd/soc_design/hdl/soc_design_wrapper.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -83,9 +81,7 @@
     </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="dip_accelerator_top"/>
-      <Option Name="TopLib" Val="xil_defaultlib"/>
-      <Option Name="TopRTLFile" Val="$PSRCDIR/sources_1/new/dip_accelerator_top.v"/>
+      <Option Name="TopModule" Val="soc_design_wrapper"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
@@ -104,28 +100,12 @@
   </FileSet>
   <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1" RelGenDir="$PGENDIR/utils_1">
     <Filter Type="Utils"/>
-    <File Path="$PSRCDIR/utils_1/imports/synth_1/dip_accelerator_top.dcp">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedInSteps" Val="synth_1"/>
-        <Attr Name="UsedInSteps" Val="synth_1_copy_1"/>
-        <Attr Name="AutoDcp" Val="1"/>
-      </FileInfo>
-    </File>
     <Config>
       <Option Name="TopAutoSet" Val="TRUE"/>
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-      <Desc>Vivado Synthesis Defaults</Desc>
-    </StratHandle>
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
     <Step Id="synth_design"/>
   </Strategy>
-  <BlockFileSet Type="BlockSrcs" Name="soc_design_processing_system7_0_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="soc_design_dip_accelerator_top_0_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="soc_design_axi_bram_ctrl_0_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="soc_design_rst_ps7_0_50M_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="soc_design_axi_smc_0"/>
 </GenRun>

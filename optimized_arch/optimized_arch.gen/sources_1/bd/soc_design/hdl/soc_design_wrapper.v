@@ -2,7 +2,7 @@
 //Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-//Date        : Fri Apr 24 16:10:04 2026
+//Date        : Fri May  8 11:10:56 2026
 //Host        : LAPTOP-K18B6J6V running 64-bit major release  (build 9200)
 //Command     : generate_target soc_design_wrapper.bd
 //Design      : soc_design_wrapper
@@ -34,9 +34,7 @@ module soc_design_wrapper
     FIXED_IO_ps_srstb,
     busy_0,
     done_0,
-    num_tiles_0,
-    result_valid_0,
-    start_0);
+    result_valid_0);
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -60,9 +58,7 @@ module soc_design_wrapper
   inout FIXED_IO_ps_srstb;
   output busy_0;
   output done_0;
-  input [3:0]num_tiles_0;
   output result_valid_0;
-  input start_0;
 
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -87,9 +83,7 @@ module soc_design_wrapper
   wire FIXED_IO_ps_srstb;
   wire busy_0;
   wire done_0;
-  wire [3:0]num_tiles_0;
   wire result_valid_0;
-  wire start_0;
 
   soc_design soc_design_i
        (.DDR_addr(DDR_addr),
@@ -115,7 +109,5 @@ module soc_design_wrapper
         .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb),
         .busy_0(busy_0),
         .done_0(done_0),
-        .num_tiles_0(num_tiles_0),
-        .result_valid_0(result_valid_0),
-        .start_0(start_0));
+        .result_valid_0(result_valid_0));
 endmodule

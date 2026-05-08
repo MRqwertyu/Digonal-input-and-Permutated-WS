@@ -1,15 +1,15 @@
 `timescale 1ns / 1ps
 
 module matrix_memory #(
-    parameter BW = 16,           
-    parameter N = 3,             
-    parameter MAX_TILES = 30,             // 1. Soft-coded tile limit
-    parameter ROWS = MAX_TILES * N,       // 2. Dynamically calculated rows
+    parameter BW = 16,            
+    parameter N = 6,              
+    parameter MAX_TILES = 30,             // Soft-coded tile limit
+    parameter ROWS = MAX_TILES * N,       // Dynamically calculated rows
     parameter MEM_FILE = "matrix_a.mem" 
 )(
     input wire ren,              
     input wire [15:0] addr,      
-    output reg [BW-1:0] row_data_out [0:N-1] 
+    output reg [(N*BW)-1:0] row_data_out  // FIX: Flattened port
 );
 
     // Array size dynamically scales based on MAX_TILES
@@ -24,15 +24,15 @@ module matrix_memory #(
         // If address is within valid bounds, output data
         if (ren && (addr < ROWS)) begin
             for (i = 0; i < N; i = i + 1) begin
-                row_data_out[i] = memory[(addr * N) + i];
+                // FIX: Map into flat wire slice
+                row_data_out[(i*BW) +: BW] = memory[(addr * N) + i];
             end
         end else begin
-            // If address exceeds ROWS (during the pipeline flush phase), 
-            // safely output zeros to push the last calculations out of the array
+            // If address exceeds ROWS, safely output zeros
             for (i = 0; i < N; i = i + 1) begin
-                row_data_out[i] = {BW{1'b0}};
+                row_data_out[(i*BW) +: BW] = {BW{1'b0}};
             end
         end
     end
 
-endmodule
+endmodule 
